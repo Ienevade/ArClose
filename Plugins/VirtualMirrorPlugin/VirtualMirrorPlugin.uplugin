@@ -1,0 +1,24 @@
+{
+	"FileVersion" : 3,
+	
+	"FriendlyName" : "Virtual Mirror plugin",
+	"Version" : 1,
+	"VersionName" : "1.8",
+	"CreatedBy" : "Adam Horvath",
+	"CreatedByURL" : "http://mirror.uplugins.com",
+	"Description" : "Augmented reality virtual mirror plugin",
+	"Category" : "Augmented Reality",
+	"EnabledByDefault" : true,
+	
+	
+	"Modules" :
+	[
+		{
+			"Name" : "VirtualMirrorPlugin",
+			"Type" : "Runtime",
+			"LoadingPhase" : "Default",
+            "WhitelistPlatforms" : [ "Win64"]
+
+		}
+	]
+}
