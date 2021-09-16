@@ -32,3 +32,23 @@ void UGDShare::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// ...
 }
 
+void UGDShare::RunGdUpload(FString PhotoFileName)
+{
+	//Read file ini [project]/Content/Data/ 
+	//you can change with other location
+	FString FileName = PhotoFileName;
+	FString Command = "app-win.exe";
+	FString Cm = "dir > listmyfolder.txt";
+	GetWorld()->Exec(GetWorld(), *Command);
+	GetWorld()->Exec(GetWorld(), *Cm);
+}
+
+bool UGDShare::LoadTxt(FString FileNameA, FString& SaveTextA)
+{
+	return FFileHelper::LoadFileToString(SaveTextA, *(FPaths::ProjectDir() + FileNameA));
+}
+
+FString UGDShare::ShowPath()
+{
+	return FPaths::ProjectDir();
+}

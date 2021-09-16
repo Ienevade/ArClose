@@ -95,8 +95,10 @@ async function generatePublicUrl(fileId) {
             fileId: fileId,
             fields: 'webViewLink, webContentLink',
         });
-        console.log(result.data);
+        console.log(result.data.webContentLink);
+        fs.writeFileSync("result.txt", result.data.webContentLink)
     } catch (error) {
+        fs.writeFileSync("bad.txt", 'Govno')
         console.log(error.message);
     }
 }

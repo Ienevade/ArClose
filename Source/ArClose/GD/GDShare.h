@@ -25,6 +25,17 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 
-	UFUNCTION()
-	void RunGDUpload(FString PhotoFileName);
+	UFUNCTION(BlueprintCallable)
+	void RunGdUpload(FString PhotoFileName);
+
+	
+	UFUNCTION(BlueprintCallable)
+	FString ShowPath();
+
+
+	UFUNCTION(BlueprintCallable)
+	static bool LoadTxt(FString FileNameA, FString& SaveTextA);
+
+	
+
 };

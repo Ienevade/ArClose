@@ -5,7 +5,7 @@
 			"app_key": "application.generated.ue.arclose-15973114.ue4editor.exe",
 			"launch_type": "url",
 			"url": "steam://launch/",
-			"action_manifest_path": "D:/ARClose/ArClose/Config/SteamVRBindings/steamvr_manifest.json",
+			"action_manifest_path": "D:/ArClose/Config/SteamVRBindings/steamvr_manifest.json",
 			"strings":
 			{
 				"en_us":
