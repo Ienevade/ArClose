@@ -10,7 +10,7 @@ required npm package: googleapis
 const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
-
+const args = process.argv
 const CLIENT_ID = '971361358402-3cioqihh9ts6b8itcq6hb6g8trm5ciui.apps.googleusercontent.com';
 const CLIENT_SECRET = 'iELm33tmXXS8Pirjm64ZgfVg';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
@@ -35,26 +35,48 @@ filepath which needs to be uploaded
 Note: Assumes example.jpg file is in root directory, 
 though this can be any filePath
 */
-const filePath = path.join(__dirname, 'image.jpg');
+const filePath = path.join(args[2]);
 
 async function uploadFile() {
     try {
         const response = await drive.files.create({
             requestBody: {
-                name: 'imageeee.jpg', //This can be name of your choice
-                mimeType: 'image/jpg',
+                name: 'imageeee.png', //This can be name of your choice
+                mimeType: 'image/png',
             },
             media: {
-                mimeType: 'image/jpg',
+                mimeType: 'image/png',
                 body: fs.createReadStream(filePath),
             },
         });
+            
+        //console.log(response.data);
+        //console.log(response.data.id)
+        const fileId = response.data.id
+        
+    
+        //const fileId = '1MeAYPm6GrIMnIpq_AsFEvkxhBOG9fTfd';
+        
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody: {
+                role: 'reader',
+                type: 'anyone',
+            },
+        });
 
-        console.log(response.data);
-        console.log(response.data.id)
-        const id = response.data.id
-        generatePublicUrl(id)
+        /* 
+        webViewLink: View the file in browser
+        webContentLink: Direct download link 
+        */
+        const result = await drive.files.get({
+            fileId: fileId,
+            fields: 'webViewLink, webContentLink',
+        });
+        console.log(result.data.webContentLink);
+        fs.writeFileSync("result.txt", result.data.webContentLink)
     } catch (error) {
+        fs.writeFileSync("bad.txt", 'Govno')
         console.log(error.message);
     }
     

@@ -26,16 +26,16 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
-	void RunGdUpload(FString PhotoFileName);
+	FString RunGdUpload(FString PhotoFileName);
 
 	
-	UFUNCTION(BlueprintCallable)
-	FString ShowPath();
+	
 
 
 	UFUNCTION(BlueprintCallable)
 	static bool LoadTxt(FString FileNameA, FString& SaveTextA);
 
 	
-
 };
+
+

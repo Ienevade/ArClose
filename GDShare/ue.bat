@@ -1,0 +1,1 @@
+app.exe D:\ARClose\ArClose\GDShare\Image.jpg

@@ -3,6 +3,9 @@
 
 #include "GDShare.h"
 
+
+
+
 // Sets default values for this component's properties
 UGDShare::UGDShare()
 {
@@ -32,23 +35,37 @@ void UGDShare::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// ...
 }
 
-void UGDShare::RunGdUpload(FString PhotoFileName)
+FString UGDShare::RunGdUpload(FString PhotoFileName)
 {
 	//Read file ini [project]/Content/Data/ 
 	//you can change with other location
 	FString FileName = PhotoFileName;
-	FString Command = "app-win.exe";
-	FString Cm = "dir > listmyfolder.txt";
-	GetWorld()->Exec(GetWorld(), *Command);
-	GetWorld()->Exec(GetWorld(), *Cm);
+	FString Command = FPaths::ProjectDir() + "GDShare"+"/app.exe";
+	FString Tex = Command +" "+ FileName+"> as.txt";
+	FString Out= FString();
+	FPlatformProcess::ExecProcess(*Command, *FileName,0,&Out , nullptr);
+	//while (FPlatformProcess::IsApplicationRunning(TEXT("app.exe")))
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red,TEXT("run"));
+	//};
+	
+	//char * AG = TCHAR_TO_ANSI(*Tex);
+	//system(AG);
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red,Out);
+	
+	return Out;
+
+	
 }
 
 bool UGDShare::LoadTxt(FString FileNameA, FString& SaveTextA)
 {
-	return FFileHelper::LoadFileToString(SaveTextA, *(FPaths::ProjectDir() + FileNameA));
+	return FFileHelper::LoadFileToString(SaveTextA, *(FPaths::ProjectDir() +"/GDShare/"+ FileNameA));
 }
 
-FString UGDShare::ShowPath()
-{
-	return FPaths::ProjectDir();
-}
+
+
+
+
+
+
