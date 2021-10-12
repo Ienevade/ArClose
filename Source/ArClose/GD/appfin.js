@@ -1,4 +1,4 @@
-
+﻿
 /* 
 Google Drive API:
 Demonstration to:
@@ -11,11 +11,18 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 const args = process.argv
-const CLIENT_ID = '971361358402-3cioqihh9ts6b8itcq6hb6g8trm5ciui.apps.googleusercontent.com';
-const CLIENT_SECRET = 'iELm33tmXXS8Pirjm64ZgfVg';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+//const CLIENT_ID = '971361358402-3cioqihh9ts6b8itcq6hb6g8trm5ciui.apps.googleusercontent.com';
+//const CLIENT_SECRET = 'iELm33tmXXS8Pirjm64ZgfVg';
+//const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
 
-const REFRESH_TOKEN = '1//04HELWMhxKWPtCgYIARAAGAQSNwF-L9IrnzAhOgR2CIXrxduF8ip1co_0W1PsUpL61tKKChfNFcsx4zxtnbJQiouvVsBFTNuWhB0';
+//const REFRESH_TOKEN = '1//04d5hht5uPRlDCgYIARAAGAQSNwF-L9IrQowOfBsghehjdkMBcif0REP7pvowWcPEkGdxSLLiobN4OHqOEdEi7MgKetxu7KB6FMI';
+
+let dataFile = require('./Auth.json');
+
+CLIENT_ID = dataFile["CLIENT_ID"];
+CLIENT_SECRET = dataFile["CLIENT_SECRET"];
+REDIRECT_URI =  dataFile["REDIRECT_URI"];
+REFRESH_TOKEN = dataFile["REFRESH_TOKEN"]
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -49,14 +56,14 @@ async function uploadFile() {
                 body: fs.createReadStream(filePath),
             },
         });
-            
+
         //console.log(response.data);
         //console.log(response.data.id)
         const fileId = response.data.id
-        
-    
+
+
         //const fileId = '1MeAYPm6GrIMnIpq_AsFEvkxhBOG9fTfd';
-        
+
         await drive.permissions.create({
             fileId: fileId,
             requestBody: {
@@ -79,9 +86,10 @@ async function uploadFile() {
         fs.writeFileSync("bad.txt", 'Govno')
         console.log(error.message);
     }
-    
+
 }
 
+//
 uploadFile();
 
 async function deleteFile() {
